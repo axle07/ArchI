@@ -1,0 +1,19 @@
+Initial commit for ArchI ESP32-CAM Streaming System
+
+This commit includes:
+- ESP32-CAM firmware with camera initialization and WiFi connectivity
+- C# .NET backend with SignalR for real-time streaming
+- React frontend for displaying the camera feed
+- Deployment scripts for ESP32-CAM and Raspberry Pi
+- Documentation and project requirements
+- Test structure setup
+
+Added:
+- .gitignore for multi-language project (C#, React, ESP32)
+- GitHub CODEOWNERS file
+- Test documentation
+
+Next steps:
+- Implement security hardening (CORS, authentication, input validation)
+- Add comprehensive tests
+- Create visual architecture diagram

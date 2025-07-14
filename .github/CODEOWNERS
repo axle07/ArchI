@@ -1,0 +1,15 @@
+# These owners will be the default owners for everything in the repository
+* @alexjohnson
+
+# ESP32-CAM Firmware owners
+/ESP32-CAM-Firmware/ @alexjohnson
+
+# WebServer Backend owners
+/WebServer/Backend/ @alexjohnson
+
+# WebServer Frontend owners
+/WebServer/Frontend/ @alexjohnson
+
+# Documentation owners
+/docs/ @alexjohnson
+/README.md @alexjohnson

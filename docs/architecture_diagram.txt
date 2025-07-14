@@ -1,0 +1,15 @@
+```
++---------------+      HTTP POST     +-------------------+     SignalR     +----------------+
+|               |    Video Frames    |                   |   WebSockets    |                |
+|  ESP32-CAM    +-------------------->  Raspberry Pi     +----------------->  Web Browser   |
+|  (Camera)     |                    |  (C# .NET Server) |                 |  (React UI)    |
+|               |                    |                   |                 |                |
++-------+-------+                    +--------+----------+                 +-------+--------+
+        |                                     |                                    |
+        | Capture                             | Process                            | Display
+        v                                     v                                    v
+    +---+---+                           +-----+------+                       +-----+------+
+    | OV2640 |                          | Stream     |                       | Real-time  |
+    | Sensor |                          | Service    |                       | Video Feed |
+    +-------+                           +------------+                       +------------+
+```

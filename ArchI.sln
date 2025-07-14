@@ -1,0 +1,57 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebServer", "WebServer", "{E4391095-2E9A-7DD2-F9B2-D4F85C528A50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchI.WebServer", "WebServer\Backend\ArchI.WebServer.csproj", "{ECE30C35-4CFF-9A47-9745-168E10ADB7A7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4EB63C14-1A29-4EA9-8C7D-4CE36E1E9A8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchI.WebServer.Tests", "tests\Backend-Tests\ArchI.WebServer.Tests.csproj", "{D03FE46A-B2B5-4C67-A1DB-51B095F7CC3D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ESP32", "ESP32", "{FC04E61F-91B4-4C0D-91F5-CA62009CEF34}"
+	ProjectSection(SolutionItems) = preProject
+		ESP32-CAM-Firmware\platformio.ini = ESP32-CAM-Firmware\platformio.ini
+		ESP32-CAM-Firmware\src\main.cpp = ESP32-CAM-Firmware\src\main.cpp
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{D8B11483-0E7A-4CDF-B187-4F79A7865E11}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		docs\requirements.md = docs\requirements.md
+		docs\architecture_diagram.txt = docs\architecture_diagram.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{6EE17B5E-692E-4580-B66E-FD24C7C72038}"
+	ProjectSection(SolutionItems) = preProject
+		WebServer\Frontend\package.json = WebServer\Frontend\package.json
+		WebServer\Frontend\src\App.js = WebServer\Frontend\src\App.js
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECE30C35-4CFF-9A47-9745-168E10ADB7A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECE30C35-4CFF-9A47-9745-168E10ADB7A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECE30C35-4CFF-9A47-9745-168E10ADB7A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECE30C35-4CFF-9A47-9745-168E10ADB7A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D03FE46A-B2B5-4C67-A1DB-51B095F7CC3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D03FE46A-B2B5-4C67-A1DB-51B095F7CC3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D03FE46A-B2B5-4C67-A1DB-51B095F7CC3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D03FE46A-B2B5-4C67-A1DB-51B095F7CC3D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ECE30C35-4CFF-9A47-9745-168E10ADB7A7} = {E4391095-2E9A-7DD2-F9B2-D4F85C528A50}
+		{D03FE46A-B2B5-4C67-A1DB-51B095F7CC3D} = {4EB63C14-1A29-4EA9-8C7D-4CE36E1E9A8D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47BA108A-C73D-43AE-96F6-58E24700E398}
+	EndGlobalSection
+EndGlobal
