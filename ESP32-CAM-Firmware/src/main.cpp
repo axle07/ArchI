@@ -8,10 +8,11 @@
 const char *ssid = "YOUR_WIFI_SSID";         // TODO: Replace with environment variable or secure storage
 const char *password = "YOUR_WIFI_PASSWORD"; // TODO: Replace with environment variable or secure storage
 
-// Raspberry Pi server details
-const char *serverAddress = "192.168.1.100"; // Replace with your actual Raspberry Pi IP address
-const int serverPort = 5000;                 // Default port for .NET Core
+// Server details
+const char *serverAddress = "192.168.0.38"; // Your machine's IP address
+const int serverPort = 5001;                // Updated port for .NET Core server
 const char *uploadEndpoint = "/api/camera/stream";
+const char *authToken = "test_token"; // Authentication token matching backend
 
 // ESP32-CAM AI-THINKER pin definition
 #define PWDN_GPIO_NUM 32
@@ -259,6 +260,7 @@ int sendFrameToServer(uint8_t *data, size_t length)
     // Set headers for image transmission
     esp_http_client_set_header(client, "Content-Type", "image/jpeg");
     esp_http_client_set_header(client, "Connection", "keep-alive"); // Attempt to reuse connection
+    esp_http_client_set_header(client, "Authorization", authToken); // Add authentication token
 
     // Set post data with error handling
     esp_err_t err = esp_http_client_set_post_field(client, (const char *)data, length);

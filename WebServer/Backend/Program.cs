@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configure Serilog
 Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
     .WriteTo.Console()
     .WriteTo.File("logs/archi-server.log", rollingInterval: RollingInterval.Day)
     .CreateLogger();
@@ -43,6 +44,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Enable CORS before routing
 app.UseCors();
 
 app.UseRouting();
@@ -58,7 +60,8 @@ Directory.CreateDirectory("logs");
 try
 {
     Log.Information("Starting ArchI Web Server");
-    app.Run();
+    // Listen on all network interfaces (not just localhost) on port 5001
+    app.Run("http://0.0.0.0:5001");
 }
 catch (Exception ex)
 {
