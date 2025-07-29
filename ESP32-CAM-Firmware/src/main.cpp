@@ -9,8 +9,8 @@ const char *ssid = "YOUR_WIFI_SSID";         // TODO: Replace with environment v
 const char *password = "YOUR_WIFI_PASSWORD"; // TODO: Replace with environment variable or secure storage
 
 // Raspberry Pi server details
-const char *serverAddress = "YOUR_RASPBERRY_PI_IP"; // TODO: Replace with your Raspberry Pi IP address
-const int serverPort = 5000;                        // Default port for .NET Core
+const char *serverAddress = "192.168.1.100"; // Replace with your actual Raspberry Pi IP address
+const int serverPort = 5000;                 // Default port for .NET Core
 const char *uploadEndpoint = "/api/camera/stream";
 
 // ESP32-CAM AI-THINKER pin definition
@@ -63,8 +63,8 @@ bool initCamera()
     config.pin_pclk = PCLK_GPIO_NUM;
     config.pin_vsync = VSYNC_GPIO_NUM;
     config.pin_href = HREF_GPIO_NUM;
-    config.pin_sscb_sda = SIOD_GPIO_NUM;
-    config.pin_sscb_scl = SIOC_GPIO_NUM;
+    config.pin_sccb_sda = SIOD_GPIO_NUM; // Updated from deprecated pin_sscb_sda
+    config.pin_sccb_scl = SIOC_GPIO_NUM; // Updated from deprecated pin_sscb_scl
     config.pin_pwdn = PWDN_GPIO_NUM;
     config.pin_reset = RESET_GPIO_NUM;
 
@@ -175,7 +175,7 @@ bool connectToWiFi()
         // Exponential backoff (up to 2 seconds)
         if (retryDelay < 2000)
         {
-            retryDelay = min(2000, retryDelay * 1.5);
+            retryDelay = (retryDelay * 1.5 > 2000) ? 2000 : (int)(retryDelay * 1.5);
         }
 
         // After several attempts, try restarting the connection
