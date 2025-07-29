@@ -37,10 +37,10 @@ camera_config_t config;
 
 // LED configuration
 #define LED_PIN 4
-#define LED_PWM_CHANNEL 7  // PWM channel for LED control (0-15)
-#define LED_PWM_FREQ 5000  // 5kHz PWM frequency
-#define LED_PWM_RESOLUTION 8  // 8-bit resolution (0-255)
-#define LED_BRIGHTNESS 50  // Brightness level (0-255), lower for dimmer LED
+#define LED_PWM_CHANNEL 7    // PWM channel for LED control (0-15)
+#define LED_PWM_FREQ 5000    // 5kHz PWM frequency
+#define LED_PWM_RESOLUTION 8 // 8-bit resolution (0-255)
+#define LED_BRIGHTNESS 50    // Brightness level (0-255), lower for dimmer LED
 
 // Frame buffer
 camera_fb_t *fb = NULL;

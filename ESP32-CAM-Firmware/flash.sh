@@ -4,20 +4,22 @@
 
 # Check if port is provided
 if [ -z "$1" ]; then
-  echo "Usage: ./flash.sh <PORT>"
-  echo "Example: ./flash.sh /dev/ttyUSB0"
+  PORT=$(ls -d1 /dev/* | grep cu\.usbserial)
+else
+  PORT=$1
+fi
+
+if [ -z "$PORT" ]; then
+  echo "No USB serial device found."
   exit 1
 fi
 
-PORT=$1
-
 echo "Flashing ESP32-CAM firmware to $PORT..."
 echo "Note: Make sure GPIO0 is connected to GND before powering up to enter flash mode"
-echo "Press any key when the ESP32-CAM is ready for flashing..."
-read -n 1
 
-# Build and upload using PlatformIO
-pio run -t upload --upload-port $PORT
+
+# Build and upload using PlatformIO - only flash the main environment (not test)
+pio run -e esp32cam -t upload --upload-port $PORT
 
 # Check if the upload was successful
 if [ $? -eq 0 ]; then
