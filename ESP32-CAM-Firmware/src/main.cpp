@@ -35,8 +35,12 @@ const char *authToken = "test_token"; // Authentication token matching backend
 // Camera configuration
 camera_config_t config;
 
-// LED pin
+// LED configuration
 #define LED_PIN 4
+#define LED_PWM_CHANNEL 7  // PWM channel for LED control (0-15)
+#define LED_PWM_FREQ 5000  // 5kHz PWM frequency
+#define LED_PWM_RESOLUTION 8  // 8-bit resolution (0-255)
+#define LED_BRIGHTNESS 50  // Brightness level (0-255), lower for dimmer LED
 
 // Frame buffer
 camera_fb_t *fb = NULL;
@@ -299,22 +303,41 @@ int sendFrameToServer(uint8_t *data, size_t length)
 /**
  * Toggle the onboard LED based on connection status
  */
+/**
+ * Turn LED on at the configured brightness level
+ */
+void ledOn()
+{
+    ledcWrite(LED_PWM_CHANNEL, LED_BRIGHTNESS);
+}
+
+/**
+ * Turn LED off
+ */
+void ledOff()
+{
+    ledcWrite(LED_PWM_CHANNEL, 0);
+}
+
+/**
+ * Update LED status based on system state
+ */
 void updateLED()
 {
     if (hasConnectionError)
     {
         // Fast blink indicates error
-        digitalWrite(LED_PIN, HIGH);
+        ledOn();
         delay(100);
-        digitalWrite(LED_PIN, LOW);
+        ledOff();
         delay(100);
     }
     else
     {
         // Slow blink indicates normal operation
-        digitalWrite(LED_PIN, HIGH);
+        ledOn();
         delay(500);
-        digitalWrite(LED_PIN, LOW);
+        ledOff();
     }
 }
 
@@ -327,9 +350,10 @@ void setup()
     Serial.println("\n\n=== ESP32-CAM Video Streaming System ===");
     Serial.println("Initializing...");
 
-    // Configure LED pin for status indication
-    pinMode(LED_PIN, OUTPUT);
-    digitalWrite(LED_PIN, HIGH); // LED on during initialization
+    // Configure LED pin for status indication with PWM brightness control
+    ledcSetup(LED_PWM_CHANNEL, LED_PWM_FREQ, LED_PWM_RESOLUTION);
+    ledcAttachPin(LED_PIN, LED_PWM_CHANNEL);
+    ledcWrite(LED_PWM_CHANNEL, LED_BRIGHTNESS); // LED on at reduced brightness during initialization
 
     // Get ESP32 chip information
     esp_chip_info_t chipInfo;
@@ -363,9 +387,9 @@ void setup()
         // Fatal error - blink rapidly to indicate camera failure
         while (true)
         {
-            digitalWrite(LED_PIN, HIGH);
+            ledOn();
             delay(100);
-            digitalWrite(LED_PIN, LOW);
+            ledOff();
             delay(100);
         }
     }
@@ -389,7 +413,7 @@ void setup()
     Serial.println("Streaming to server: http://" + String(serverAddress) + ":" + String(serverPort) + String(uploadEndpoint));
     Serial.println("======================================");
 
-    digitalWrite(LED_PIN, LOW); // Turn off LED to indicate setup complete
+    ledOff(); // Turn off LED to indicate setup complete
 }
 
 void loop()
