@@ -1,7 +1,7 @@
 ```
 +---------------+      HTTP POST     +-------------------+     SignalR     +----------------+
 |               |    Video Frames    |                   |   WebSockets    |                |
-|  ESP32-CAM    +-------------------->  Raspberry Pi     +----------------->  Web Browser   |
+|  ESP32-CAM    +-------------------->  .NET Server      +----------------->  Web Browser   |
 |  (Camera)     |                    |  (C# .NET Server) |                 |  (React UI)    |
 |               |                    |                   |                 |                |
 +-------+-------+                    +--------+----------+                 +-------+--------+

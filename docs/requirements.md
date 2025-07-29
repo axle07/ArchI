@@ -39,12 +39,12 @@
 
 3. **Compatibility**
    - NFR3.1: The frontend shall be compatible with modern web browsers (Chrome, Firefox, Safari, Edge)
-   - NFR3.2: The backend shall run on Raspberry Pi 3 or newer hardware
+   - NFR3.2: The backend shall run on macOS or Linux-based server hardware
    - NFR3.3: The ESP32-CAM firmware shall be compatible with AI-Thinker ESP32-CAM modules
 
 4. **Security**
    - NFR4.1: The system shall document security considerations for production deployment
-   - NFR4.2: The Raspberry Pi setup shall include basic security hardening measures
+   - NFR4.2: The server setup shall include basic security hardening measures
 
 5. **Usability**
    - NFR5.1: The frontend shall provide clear visual indicators of system status
@@ -63,10 +63,10 @@
    - HW1.2: 5V power supply for the ESP32-CAM
    - HW1.3: USB-to-TTL converter for programming
 
-2. **Raspberry Pi**
-   - HW2.1: Raspberry Pi 3 or newer
-   - HW2.2: Minimum 16GB microSD card
-   - HW2.3: 5V/2.5A power supply for the Raspberry Pi
+2. **Server Hardware**
+   - HW2.1: macOS machine or Linux-based server (e.g., 64-bit capable)
+   - HW2.2: Minimum 16GB storage
+   - HW2.3: Adequate power supply for the server machine
    - HW2.4: Network connectivity (WiFi or Ethernet)
 
 ## Software Requirements
@@ -77,18 +77,18 @@
    - SW1.3: Node.js and npm for frontend development
 
 2. **Runtime Environment**
-   - SW2.1: Raspberry Pi OS (64-bit recommended)
-   - SW2.2: .NET 7.0 Runtime
+   - SW2.1: macOS or Linux (64-bit recommended)
+   - SW2.2: .NET 7.0 Runtime or higher
    - SW2.3: Web server for hosting the frontend (nginx or equivalent)
 
 ## Network Requirements
 
 1. **Connectivity**
-   - NW1.1: WiFi network accessible to both ESP32-CAM and Raspberry Pi
+   - NW1.1: WiFi network accessible to both ESP32-CAM and backend server
    - NW1.2: Sufficient bandwidth for video streaming (minimum 1 Mbps)
    - NW1.3: Stable WiFi signal at the ESP32-CAM installation location
 
 2. **Configuration**
-   - NW2.1: Fixed IP address or hostname for the Raspberry Pi
-   - NW2.2: Open port 5000 for the backend server
+   - NW2.1: Fixed IP address or hostname for the server machine
+   - NW2.2: Open port 5001 for the backend server
    - NW2.3: Open port 80 (or 3000) for the frontend web server

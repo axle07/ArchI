@@ -1,19 +1,24 @@
-Initial commit for ArchI ESP32-CAM Streaming System
+fix: resolve 403 Forbidden error and enhance system documentation
 
 This commit includes:
-- ESP32-CAM firmware with camera initialization and WiFi connectivity
-- C# .NET backend with SignalR for real-time streaming
-- React frontend for displaying the camera feed
-- Deployment scripts for ESP32-CAM and Raspberry Pi
-- Documentation and project requirements
-- Test structure setup
+- Fixed authentication issue in ESP32-CAM to backend communication
+- Added token-based authentication in ESP32-CAM firmware
+- Updated backend server to validate authentication tokens
+- Changed server port from 5000 to 5001 to avoid macOS AirPlay conflicts
+- Modified server to listen on all interfaces (0.0.0.0) instead of just localhost
+- Updated frontend environment variables to use the new port
+- Created comprehensive architecture diagrams with Mermaid
+- Replaced Raspberry Pi references with generic server terminology
+- Added new deploy-to-server.sh script for easier deployment
 
-Added:
-- .gitignore for multi-language project (C#, React, ESP32)
-- GitHub CODEOWNERS file
-- Test documentation
+Architecture documentation includes:
+- System overview with component relationships
+- Detailed authentication and network flow diagrams
+- Implementation details for each component
+- Security considerations and future enhancements
+- Visual representation of system evolution
 
 Next steps:
-- Implement security hardening (CORS, authentication, input validation)
-- Add comprehensive tests
-- Create visual architecture diagram
+- Implement HTTPS for more secure communication
+- Add more camera controls to the frontend
+- Set up deployment pipeline for easier updates

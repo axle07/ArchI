@@ -1,26 +1,31 @@
 # ArchI ESP32-CAM Streaming System
 
-A real-time, low-latency camera streaming system using ESP32-CAM, Raspberry Pi, .NET Core backend, and React frontend.
+A real-time, low-latency camera streaming system using ESP32-CAM, .NET Core backend, and React frontend.
 
 ## Project Overview
 
 This project creates an ultra-low latency video streaming system with the following components:
 
 1. **ESP32-CAM**: Captures and streams camera footage over WiFi
-2. **Raspberry Pi 3**: Hosts the backend server that receives the stream
-3. **C# .NET Core Backend**: Processes the video stream and serves it to clients
-4. **React Frontend**: Displays the camera feed in a web browser
+2. **C# .NET Core Backend**: Processes the video stream and serves it to clients
+3. **React Frontend**: Displays the camera feed in a web browser
 
 ## Architecture
 
-![Architecture Diagram](docs/architecture_diagram.png)
+For a detailed architecture overview, see the [Architecture Diagram](docs/architecture_diagram.md) documentation.
 
 ### Data Flow
 
 1. The ESP32-CAM captures frames from its camera sensor
-2. Frames are compressed as JPEG and sent via HTTP POST to the Raspberry Pi server (TODO: is the JPEG compression performant?)
-3. The .NET Core backend receives the frames and broadcasts them to connected clients via SignalR
+2. Frames are compressed as JPEG and sent via HTTP POST with authentication token to the server
+3. The .NET Core backend validates the token, receives the frames and broadcasts them to connected clients via SignalR
 4. The React frontend displays the frames in real-time using a WebSocket connection
+
+### System Components
+
+- **ESP32-CAM**: Edge device with camera module, running custom firmware
+- **Backend Server**: .NET Core application running on port 5001, supporting authentication
+- **Frontend**: React application with SignalR client for real-time updates
 
 ## Setup Instructions
 
@@ -28,9 +33,10 @@ This project creates an ultra-low latency video streaming system with the follow
 
 - ESP32-CAM board (AI-Thinker model with OV2640 camera)
 - USB-to-TTL converter for programming the ESP32-CAM
-- Raspberry Pi 3 or newer
+- macOS or Linux machine for hosting the .NET Core backend (currently configured for macOS)
+- Node.js for running the React frontend
 - Micro SD card (16GB+ recommended)
-- Power supplies for ESP32-CAM and Raspberry Pi
+- Power supplies for ESP32-CAM and server hardware
 - Development computer with:
   - Visual Studio Code with PlatformIO extension
   - .NET SDK 7.0 or higher
@@ -67,12 +73,12 @@ This project creates an ultra-low latency video streaming system with the follow
    e. Hold the RESET button on the ESP32-CAM, then press the UPLOAD button in PlatformIO
    f. After uploading completes, disconnect GPIO0 from GND and reset the board
 
-### Raspberry Pi Setup (TODO)
+### Server Setup
 
 1. **Operating System**:
    
-   a. Install Raspberry Pi OS Lite (64-bit recommended)
-   b. Configure SSH, WiFi, and enable the camera interface using `raspi-config`
+   a. Install macOS or a Linux distribution (64-bit recommended)
+   b. Configure SSH and network settings
 
 2. **Security Hardening**:
 
@@ -109,13 +115,13 @@ This project creates an ultra-low latency video streaming system with the follow
       source ~/.bashrc
       ```
       
-   b. Copy the WebServer/Backend folder to the Raspberry Pi
+   b. Copy the WebServer/Backend folder to the server
    
    c. Build and run the application:
       ```bash
       cd /path/to/WebServer/Backend
       dotnet build
-      dotnet run --urls=http://0.0.0.0:5000
+      dotnet run --urls=http://0.0.0.0:5001
       ```
       
     d. To run as a service on startup:
@@ -129,7 +135,7 @@ This project creates an ultra-low latency video streaming system with the follow
 
                 [Service]
                 WorkingDirectory=/path/to/WebServer/Backend
-                ExecStart=/home/pi/.dotnet/dotnet run --urls=http://0.0.0.0:5000
+                ExecStart=dotnet run --urls=http://0.0.0.0:5001
                 Restart=always
                 RestartSec=10
                 SyslogIdentifier=archi-server
@@ -151,11 +157,15 @@ This project creates an ultra-low latency video streaming system with the follow
 
    a. Install Node.js and npm:
       ```bash
+      # For macOS with Homebrew
+      brew install node
+      
+      # For Linux
       curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
       sudo apt install -y nodejs
       ```
       
-   b. Copy the WebServer/Frontend folder to the Raspberry Pi
+   b. Copy the WebServer/Frontend folder to the server
    
    c. Build the frontend:
       ```bash
@@ -233,18 +243,18 @@ This project creates an ultra-low latency video streaming system with the follow
 
 - **Camera Initialization Failed**: Verify the camera module is properly connected and not damaged
 - **WiFi Connection Issues**: Check SSID and password, ensure the router is in range
-- **Server Connection Errors**: Verify the Raspberry Pi IP address and that the server is running
+- **Server Connection Errors**: Verify the server IP address and that the backend is running
 
 ### Server Issues
 
 - **Server Won't Start**: Check log files for errors, ensure .NET dependencies are installed
-- **Can't Receive Frames**: Verify firewall settings allow traffic on port 5000
+- **Can't Receive Frames**: Verify firewall settings allow traffic on port 5001
 - **High CPU Usage**: Lower the camera resolution or frame rate on the ESP32-CAM
 
 ### Frontend Issues
 
 - **Blank Screen**: Check browser console for errors, verify the server URL is correct
-- **Connection Errors**: Ensure the Raspberry Pi is accessible from your device
+- **Connection Errors**: Ensure the backend server is accessible from your device
 
 ## Security Considerations
 
@@ -264,7 +274,7 @@ This project is a proof-of-concept and does not include authentication. For prod
    - Consider VPN access for remote viewing
 
 4. **Regular Updates**:
-   - Keep the Raspberry Pi OS updated
+   - Keep the server OS updated
    - Apply security patches to all dependencies
 
 ## Architectural Decisions
