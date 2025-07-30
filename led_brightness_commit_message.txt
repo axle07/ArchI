@@ -1,0 +1,11 @@
+fix: reduce ESP32-CAM LED brightness to prevent glare
+
+This commit reduces the brightness of the LED on the ESP32-CAM to make it less blinding.
+
+- Added PWM control for the onboard LED instead of simple on/off
+- Implemented a configurable brightness level (set to 50/255, ~20% brightness)
+- Created helper functions ledOn() and ledOff() for consistent LED control
+- Updated all LED control code to use the new PWM-based functions
+- Maintained the same visual indicator patterns (slow blink for normal operation, fast blink for errors)
+
+The LED will now be much less bright while still providing visual feedback on the device status.
